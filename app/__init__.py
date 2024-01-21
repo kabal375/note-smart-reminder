@@ -6,4 +6,6 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 
-from app import views, models, controllers
+from app.auth import controller as auth_controller
+from app.auth import models as auth_models
+from app.auth import views as auth_views

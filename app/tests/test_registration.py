@@ -1,5 +1,5 @@
 import unittest
-from app import app, db, controllers
+from app import app, db, auth_controller
 
 class TestRegistration(unittest.TestCase):
 
@@ -19,18 +19,18 @@ class TestRegistration(unittest.TestCase):
     def test_registration_success(self):
         with app.app_context():
             data = {'username': 'test_user', 'password': 'test_password'}
-            result = controllers.register_user(data['username'], data['password'])
+            result = auth_controller.register_user(data['username'], data['password'])
             self.assertEqual(result['status'], 'success')
 
     def test_registration_duplicate_username(self):
         with app.app_context():
             # Регистрируем пользователя
             data = {'username': 'test_user', 'password': 'test_password'}
-            result = controllers.register_user(data['username'], data['password'])
+            result = auth_controller.register_user(data['username'], data['password'])
             self.assertEqual(result['status'], 'success')
 
             # Пытаемся зарегистрировать пользователя с тем же именем
-            result_duplicate = controllers.register_user(data['username'], 'another_password')
+            result_duplicate = auth_controller.register_user(data['username'], 'another_password')
             self.assertEqual(result_duplicate['status'], 'error')
 
 if __name__ == '__main__':
